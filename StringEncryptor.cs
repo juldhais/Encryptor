@@ -35,11 +35,11 @@ public static class StringEncryptor
         var encryptedText = text[4..];
 
         using var aes = Aes.Create();
-        using var hash = MD5.Create();
+        using var md5 = MD5.Create();
 
         aes.BlockSize = 128;
-        aes.Key = hash.ComputeHash(Encoding.Unicode.GetBytes(password));
-        aes.IV = hash.ComputeHash(Encoding.Unicode.GetBytes(iv));
+        aes.Key = md5.ComputeHash(Encoding.Unicode.GetBytes(password));
+        aes.IV = md5.ComputeHash(Encoding.Unicode.GetBytes(iv));
 
         var bytesToDecrypt = Convert.FromBase64String(encryptedText);
         var decryptor = aes.CreateDecryptor();
